@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1048007181394",
+    "firebase_url": "https://arthub-8f090.firebaseio.com",
+    "project_id": "arthub-8f090",
+    "storage_bucket": "arthub-8f090.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048007181394:android:5fc2fa98a74d342c",
+        "android_client_info": {
+          "package_name": "verma.sahil.arthub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048007181394-bue7qas4okaljm361g4v4kmi1b0kf36k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "verma.sahil.arthub",
+            "certificate_hash": "ce3865efda38028014ef7fa9e2b0e6911fe73b28"
+          }
+        },
+        {
+          "client_id": "1048007181394-f7q0ksk6hahqgsjcdmakq3gbl33vvjei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWtrxdI5kXeCUhMlkKyjJScZQRVub6lq4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048007181394-f7q0ksk6hahqgsjcdmakq3gbl33vvjei.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

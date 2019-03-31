@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WebViewActivity"
+    android:transitionName="my_transition">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_web_view" />
+
+    <ImageButton
+        android:id="@+id/navBack"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="@color/md_blue_900"
+        android:src="@drawable/navigation_arrow"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="left|top" />
+
+</android.support.design.widget.CoordinatorLayout>
