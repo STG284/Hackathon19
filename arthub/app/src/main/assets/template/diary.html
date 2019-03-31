@@ -13,19 +13,65 @@
         <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
 <body>
     <style>
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding-top: 5em;
-          width: 25%;
-          background-color: #000;
-          font-color: white;
-          height: 100%; /* Full height */
-          position: fixed; /* Make it stick, even on scroll */
-          overflow: auto; /* Enable scrolling if the sidenav has too much content */
+        .sidenav {
+          height: 100%; /* 100% Full-height */
+          width: 0; /* 0 width - change this with JavaScript */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Stay on top */
+          top: 0; /* Stay at the top */
+          left: 0;
+          background-color: #111; /* Black*/
+          overflow-x: hidden; /* Disable horizontal scroll */
+          padding-top: 60px; /* Place content 60px from the top */
+          transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+        .sidenav p {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #818181;
+          display: block;
+          transition: 0.3s;
+        }
+        .sidenav .closebtn {
+          position: absolute;
+          top: 0;
+          right: 25px;
+          font-size: 36px;
+          margin-left: 50px;
+        }
+
+        #main {
+          transition: margin-left .5s;
+          padding: 20px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
+        .btn:active{
+           background: rgb(85, 180, 60);
+           color: white;
+        }
+        .input100{
+            width: 70%;
+            margin-right: 1em;
+            height: 10em;
+            border: solid 1px darkgreen;
         }
     </style>
 
@@ -69,62 +115,32 @@
             </div>
         </div>
     </header> -->
-                <ul>
-                    <li><h1 style="font-color: 'white'">Title</h1></li>
-                    <li>Desk</li>
-                </ul>
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <p style="font-color: #fff; font-size: 3em;">Title</p><br><br>
+                <p style="font-color: #fff; font-size: 1em;">This is it!!!</p>
+            </div>
     <!--================ End Header Menu Area =================-->
     
     <!--================Contact Area =================-->
-            <div class="row">
-                <div class="col-lg-9">
+            <span class="glyphicon glyphicon-th-list" onclick="openNav()"></span>
+            <br><br>
+            <div class="container">
+              <div class="jumbotron"> 
+                <p style="font-size:1em;">Bootstrap is the most popular HTML, CSS, and JS framework for developing
+                responsive, mobile-first projects on the web.</p> 
+              </div>
+
+            </div>
+            
+            <div class="row" id="main">
+                <div class="col-lg-1">
                         <div class="col-md-12 text-right">
-                            <button type="submit" value="submit" class="btn primary_btn">Send Message</button>
+                            <textarea class="input100" name="message" placeholder="Description here..." id="msg"></textarea>
+                            <button type="submit" value="submit" class="btn primary_btn">RECORD</button>
                         </div>
                 </div>
             </div>
-            
-    <!--================Contact Area =================-->
-        
-	<!--================ Start Subscribe Area =================-->
-	
-    <!--================ End Subscribe Area =================-->
-        
-    <!--================ Start footer Area  =================-->	
-    <!--================ End footer Area  =================-->
-    
-    <!--================Contact Success and Error message Area =================-->
-    <div id="success" class="modal modal-message fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h2>Thank you</h2>
-                    <p>Your message is successfully sent...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modals error -->
-    <div id="error" class="modal modal-message fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h2>Sorry !</h2>
-                    <p> Something went wrong </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--================End Contact Success and Error message Area =================-->
-        
-        
         
         
         <!-- Optional JavaScript -->
@@ -145,5 +161,18 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
         <script src="js/gmaps.min.js"></script>
         <script src="js/theme.js"></script>
+        <script>
+            /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "77%";
+              document.getElementById("main").style.marginLeft = "100%";
+            }
+
+            /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+              document.getElementById("main").style.marginLeft = "0";
+            }
+        </script>
     </body>
 </html>
