@@ -60,6 +60,10 @@ public class MyJavaInterface {
 
     private void startNextAct(String url){
         Intent intent = new Intent(context,WebViewActivity.class);
+        if(url.contains("new"))
+            intent = new Intent(context,NewProjectActivity.class);
+        else if(url.contains("collaborate"))
+            intent = new Intent(context,CollaborateActivity.class);
         intent.putExtra("url","file:///android_asset/template/"+url);
         activity.startActivity(intent);
     }
