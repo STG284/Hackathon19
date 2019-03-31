@@ -70,7 +70,6 @@
         .input100{
             width: 70%;
             margin-right: 1em;
-            height: 10em;
             border: solid 1px darkgreen;
         }
     </style>
@@ -133,12 +132,23 @@
 
             </div>
             
-            <div class="row" id="main">
+            <div id="main">
+              <div class="row">
+                  <div class="col-lg-1">
+                          <div class="col-md-12 text-right">
+                              <textarea class="input100" name="message" placeholder="Description here..." id="msg"></textarea>
+                              <button type="submit" value="submit" class="btn primary_btn">RECORD</button>
+                          </div>
+                  </div>
+              </div>
+              <br><br>
+                <div class="row">
                 <div class="col-lg-1">
                         <div class="col-md-12 text-right">
-                            <textarea class="input100" name="message" placeholder="Description here..." id="msg"></textarea>
-                            <button type="submit" value="submit" class="btn primary_btn">RECORD</button>
+                            <input id="collaboratorId" class="input100" type="text" name="name" placeholder="Enter CollaboratorId"  style="width:11.7em;">
+                            <button type="submit" value="submit" class="btn primary_btn">ADD COLLABORATOR</button>
                         </div>
+                </div>
                 </div>
             </div>
         
