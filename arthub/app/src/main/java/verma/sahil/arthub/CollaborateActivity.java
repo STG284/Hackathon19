@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import verma.sahil.arthub.models.Diary;
@@ -138,14 +139,15 @@ public class CollaborateActivity extends AppCompatActivity {
             webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
         }
 
-        if(url==null || url.isEmpty()){
-            errorMessage.setVisibility(View.VISIBLE);
-            errorMessage.setText("Something went Wrong! \n Please Try Again Later");
-        }else{
-            webView.loadUrl(url);
-        }
+//        if(url==null || url.isEmpty()){
+//            errorMessage.setVisibility(View.VISIBLE);
+//            errorMessage.setText("Something went Wrong! \n Please Try Again Later");
+//        }else{
+//            webView.loadUrl(url);
+//        }
 
 
+        webView.loadData(getHTMLFromProjects(null),"text/html","utf-8");
         myJavaInterface = new MyJavaInterface(CollaborateActivity.this,webView,getApplicationContext(),project,user);
         webView.addJavascriptInterface(myJavaInterface,"MyInterface");
 
@@ -173,35 +175,8 @@ public class CollaborateActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Check if the key event was the Back button and if there's history
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-            webView.goBack();
-            return true;
-        }
-        // If it wasn't the Back key or there's no web page history, bubble up to the default
-        // system behavior (probably exit the activity)
-        return super.onKeyDown(keyCode, event);
-    }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE){
-            Uri uri = data.getData();
-
-            if(uri == null){
-                return;
-            }
-
-            //TODO:- upload image to firebase and get path of it to save here
-            project.setImage(uri.getLastPathSegment());
-
-            myJavaInterface.setSelectedImagePath(uri.getLastPathSegment());
-        }
-    }
 
     public class MyJavaInterface {
         static final int PICK_IMAGE = 6589;
@@ -251,65 +226,63 @@ public class CollaborateActivity extends AppCompatActivity {
 
 
 
-        @JavascriptInterface
-        public void selectImage(){
-            Toast.makeText(activity, "Select Image!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-
-        }
 
 
-        void setSelectedImagePath(final String path){
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl("javascript:replace('imagePathId', '"+path+"')");
-                }
-            });
-
-        }
+    }
 
 
-        @JavascriptInterface
-        public void submitData(final String projName, final String desc){
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(activity, "projectname:"+projName+"\n"+desc, Toast.LENGTH_SHORT).show();
-                    project.setTitle(projName);
-                    project.setDesc(desc);
-                    pushProject();
-                }
-            });
-        }
 
+    private String getHTMLFromProjects(ArrayList<Project> projects){
+        StringBuilder builder = new StringBuilder();
 
-        private void pushProject(){
-            DatabaseReference db = FirebaseDatabase.getInstance().getReference("Projects");
-            db.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    long projNo = dataSnapshot.getChildrenCount();
+        String header = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<title>List</title>\n" +
+                "<meta charset=\"UTF-8\">\n" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n" +
+                "<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\n" +
+                "<link rel=\"stylesheet\" href=\"vendors/linericon/style.css\">\n" +
+                "<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\n" +
+                "<link rel=\"stylesheet\" href=\"vendors/lightbox/simpleLightbox.css\">\n" +
+                "<link rel=\"stylesheet\" href=\"vendors/nice-select/css/nice-select.css\">\n" +
+                "<!-- main css -->\n" +
+                "<link rel=\"stylesheet\" href=\"css/style.css\">\n" +
+                "<link rel=\"stylesheet\" href=\"css/responsive.css\">\n" +
+                "<body>\n" +
+                "\n" +
+                "\n" +
+                "<!-- Page content -->\n" +
+                "<div class=\"w3-content w3-padding\" style=\"max-width:1564px\">\n" +
+                "\n" +
+                "\n" +
+                "  <!-- About Section -->\n" +
+                "  <div class=\"w3-container w3-padding-32\" id=\"about\">\n" +
+                "    <h1 class=\"w3-border-bottom w3-border-light-grey w3-padding-16\">Collaborate</h1>\n" +
+                "  </div>";
 
+        String footer = "\n" +
+                "</div>\n" +
+                "\n" +
+                "</body>\n" +
+                "\n" +
+                "</html>";
 
-                    DatabaseReference projDB = FirebaseDatabase.getInstance().
-                            getReference("Projects/"+(projNo+1));
-                    projDB.setValue(project);
+        builder.append(header);
+        builder.append("<div class=\"w3-row-padding w3-grayscale\">\n" +
+                "    <br> <br><br> <br><br> <br>\n" +
+                "    <div class=\"w3-col l3 m6 w3-margin-bottom\">\n" +
+                "      <img src=\"img/user_image.jpg\" alt=\"John\" style=\"width:100%\">\n" +
+                "      <h3>John Doe</h3>\n" +
+                "      <p class=\"w3-opacity\">CEO & Founder</p>\n" +
+                "      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>\n" +
+                "      <p><button class=\"w3-button w3-light-grey w3-block\">Contact</button></p>\n" +
+                "    </div>\n" +
+                "  </div>");
+        builder.append(footer);
 
-                    Toast.makeText(context, "Success Creating Project", Toast.LENGTH_SHORT).show();
-                }
+        return builder.toString();
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(context, "failed!", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "onCancelled: "+databaseError.getMessage() );
-                    Log.e(TAG, "onCancelled: "+databaseError.getDetails() );
-                }
-            });
-        }
     }
 
 }
